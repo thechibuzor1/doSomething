@@ -5,7 +5,7 @@ const Screen4 = () => {
   return (
     <View
       style={{
-        backgroundColor: "black",
+        backgroundColor: "red",
         flex: 1,
       }}
     >

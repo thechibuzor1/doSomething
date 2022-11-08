@@ -5,7 +5,7 @@ const Screen2 = () => {
   return (
     <View
       style={{
-        backgroundColor: "black",
+        backgroundColor: "green",
         flex: 1,
       }}
     >

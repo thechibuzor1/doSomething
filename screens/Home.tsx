@@ -6,6 +6,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
   StatusBar,
+  ScrollView,
+  Dimensions,
 } from "react-native";
 import React, { useState } from "react";
 import * as Progress from "react-native-progress";
@@ -18,9 +20,20 @@ import {
   brands,
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
+import CircularProgress from "react-native-circular-progress-indicator";
+import { BarChart } from "react-native-chart-kit";
 
 const Home = () => {
+  const { width, height } = Dimensions.get("window");
   const [active, setActive] = useState("Overview");
+  const data = {
+    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    datasets: [
+      {
+        data: [18, 6, 10, 20, 10, 4, 2],
+      },
+    ],
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -146,65 +159,236 @@ const Home = () => {
           <FontAwesomeIcon icon={solid("sliders")} size={20} color={"gray"} />
         </TouchableOpacity>
       </View>
-
-      <View
-        style={{
-          width: "90%",
-          backgroundColor: "#C5B4E3",
-          alignSelf: "center",
-          marginTop: 30,
-          borderRadius: 15,
-          height: 100,
-          marginBottom: 15,
-        }}
-      >
-        <TouchableOpacity
-          style={{ alignSelf: "flex-end", marginRight: 10, marginTop: 5 }}
-        >
-          <FontAwesomeIcon icon={solid("circle-xmark")} color={"blue"} />
-        </TouchableOpacity>
-        <Text style={{ marginLeft: 15 }}>Priority Task Progress</Text>
-        <Text style={{ marginLeft: 15 }}>3/5 is completed</Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Progress.Bar
-            progress={0.6899}
-            width={200}
-            color={"black"}
-            unfilledColor={"white"}
-            style={{ marginLeft: 15, marginTop: 10 }}
-          />
-          <Text
+      {active === "Overview" ? (
+        <View>
+          <View
             style={{
-              marginRight: 15,
+              width: "90%",
+              backgroundColor: "#C5B4E3",
+              alignSelf: "center",
+              marginTop: 30,
+              borderRadius: 15,
+              height: 100,
+              marginBottom: 15,
             }}
           >
-            68.99%
-          </Text>
+            <TouchableOpacity
+              style={{ alignSelf: "flex-end", marginRight: 10, marginTop: 5 }}
+            >
+              <FontAwesomeIcon icon={solid("circle-xmark")} color={"blue"} />
+            </TouchableOpacity>
+            <Text
+              style={{
+                marginLeft: 15,
+                fontSize: 14,
+                fontWeight: "bold",
+                fontStyle: "normal",
+              }}
+            >
+              Priority Task Progress
+            </Text>
+            <Text style={{ marginLeft: 15 }}>3/5 is completed</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Progress.Bar
+                progress={0.6899}
+                width={200}
+                color={"black"}
+                unfilledColor={"white"}
+                style={{ marginLeft: 15, marginTop: 10 }}
+              />
+              <Text
+                style={{
+                  marginRight: 15,
+                }}
+              >
+                68.99%
+              </Text>
+            </View>
+          </View>
+          <Block
+            txt={"Total Task"}
+            num={16}
+            numColor={"yellow"}
+            icon={solid("tasks")}
+          />
+          <Block
+            txt={"Completed"}
+            num={32}
+            numColor={"green"}
+            icon={solid("list")}
+          />
+          <Block
+            txt={"Total Projects"}
+            num={8}
+            numColor={"purple"}
+            icon={solid("diagram-project")}
+          />
         </View>
-      </View>
-      <Block
-        txt={"Total Task"}
-        num={16}
-        numColor={"yellow"}
-        icon={solid("tasks")}
-      />
-      <Block
-        txt={"Completed"}
-        num={32}
-        numColor={"green"}
-        icon={solid("list")}
-      />
-      <Block
-        txt={"Total Projects"}
-        num={8}
-        numColor={"purple"}
-        icon={solid("diagram-project")}
-      />
+      ) : (
+        <ScrollView>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginTop: 30,
+              width: "90%",
+              alignSelf: "center",
+              backgroundColor: "#768692",
+              paddingTop: 15,
+              paddingBottom: 10,
+              borderRadius: 15,
+              height: 150,
+            }}
+          >
+            <View style={{ marginLeft: 15 }}>
+              <Text style={{ color: "#2E3033", marginBottom: 5 }}>
+                Daily Goal
+              </Text>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  marginBottom: 5,
+                }}
+              >
+                <View style={{ backgroundColor: "#44D62C", borderRadius: 30 }}>
+                  <Text
+                    style={{
+                      color: "white",
+                      marginHorizontal: 8,
+                      marginVertical: 2,
+                    }}
+                  >
+                    3/5
+                  </Text>
+                </View>
+
+                <Text style={{ color: "white", alignSelf: "center" }}>
+                  {" "}
+                  tasks
+                </Text>
+              </View>
+              <Text style={{ color: "#2E3033", marginBottom: 5 }}>
+                You marked 3/5 tasks {"\n"} as done 🎉
+              </Text>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#9B26B6",
+                  position: "absolute",
+                  bottom: 0,
+                  borderRadius: 30,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    marginHorizontal: 15,
+                    marginVertical: 7,
+                  }}
+                >
+                  All Task
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{ marginRight: 30 }}>
+              <CircularProgress
+                value={68}
+                valueSuffix={"%"}
+                inActiveStrokeColor={"black"}
+                progressValueColor={"#fff"}
+                maxValue={100}
+                radius={40}
+                clockwise={false}
+              />
+            </View>
+          </View>
+          <View
+            style={{
+              marginTop: 30,
+              width: "90%",
+              alignSelf: "center",
+              backgroundColor: "#768692",
+
+              borderRadius: 15,
+            }}
+          >
+            <Text
+              style={{
+                color: "#BEC3C6",
+                marginBottom: 5,
+                marginTop: 15,
+                marginLeft: 30,
+              }}
+            >
+              Completed in the last 7 Days
+            </Text>
+            <BarChart
+              showBarTops={false}
+              data={data}
+              withInnerLines={false}
+              width={width * 0.9}
+              height={160}
+              fromZero={true}
+              style={{
+                borderRadius: 15,
+                marginTop: 15,
+                marginBottom: 10,
+              }}
+              yAxisLabel=""
+              yAxisSuffix=""
+              chartConfig={{
+                backgroundGradientFrom: "#768692",
+                backgroundGradientFromOpacity: 1,
+                backgroundGradientTo: "#768692",
+                backgroundGradientToOpacity: 1,
+                color: () => `black`,
+                strokeWidth: 2, // optional, default 3
+                barPercentage: 0.5,
+                useShadowColorFromDataset: false, // optional
+                barRadius: 10,
+                backgroundColor: "#768692",
+                fillShadowGradientOpacity: 1,
+              }}
+            />
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginLeft: 30,
+                marginTop: 5,
+                marginBottom: 15,
+              }}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                }}
+              >
+                108 Tasks
+              </Text>
+              <Text
+                style={{
+                  color: "#221C35",
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                }}
+              >
+                {"      "}6 Projects
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };
@@ -245,9 +429,14 @@ const Block = (props) => (
         color={"blue"}
       />
       <Text
-        style={{ color: "white", textAlign: "center", alignSelf: "center",  fontSize: 14,
-        fontWeight: "bold",
-        fontStyle: "normal", }}
+        style={{
+          color: "white",
+          textAlign: "center",
+          alignSelf: "center",
+          fontSize: 14,
+          fontWeight: "bold",
+          fontStyle: "normal",
+        }}
       >
         {props.txt}
       </Text>
