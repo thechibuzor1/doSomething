@@ -20,8 +20,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Screen2 from "./screens/Screen2";
 import Screen3 from "./screens/Screen3";
 import Screen4 from "./screens/Screen4";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 export default function Main({ navigation }) {
+  const [outerScrollViewScrollEnabled, setOuterScrollViewScrollEnabled] =
+    useState(true);
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { width, height } = Dimensions.get("window");
   const scrollViewRef = useRef(null);
@@ -38,13 +41,41 @@ export default function Main({ navigation }) {
     }
   };
   const { currentPage: pageIndex } = sliderState;
-
+  const styles = StyleSheet.create({
+    container: {
+      width: "95%",
+      alignSelf: "center",
+      flexDirection: "row",
+      paddingVertical: 7,
+      marginBottom: "5%",
+      paddingHorizontal: 8,
+      marginTop: 8,
+      alignItems: "center",
+      justifyContent: "space-evenly",
+      alignContent: "center",
+      position: "absolute",
+      bottom: 5,
+      borderRadius: 15,
+      zIndex: 999,
+    },
+    semiCircle: {
+      marginTop: 15,
+      width: "100%",
+      height: 10,
+      borderRadius: 15,
+      backgroundColor: "purple",
+      justifyContent: "center",
+      alignItems: "center",
+      alignSelf: "center",
+    },
+  });
   return (
     <>
       <StatusBar barStyle="default" />
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView
           style={{ flex: 1 }}
+          scrollEnabled={outerScrollViewScrollEnabled}
           horizontal={true}
           scrollEventThrottle={16}
           pagingEnabled={true}
@@ -58,7 +89,9 @@ export default function Main({ navigation }) {
             <Home />
           </View>
           <View style={{ width, height }}>
-            <Screen2 />
+            <Screen2
+              setOuterScrollViewScrollEnabled={setOuterScrollViewScrollEnabled}
+            />
           </View>
           <View style={{ width, height }}>
             <Screen3 />
@@ -149,31 +182,3 @@ export default function Main({ navigation }) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "95%",
-    alignSelf: "center",
-    flexDirection: "row",
-    paddingVertical: 7,
-    marginBottom: "5%",
-    paddingHorizontal: 8,
-    marginTop: 8,
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    alignContent: "center",
-    position: "absolute",
-    bottom: 5,
-    zIndex: 999,
-  },
-  semiCircle: {
-    marginTop: 15,
-    width: "100%",
-    height: 10,
-    borderRadius: 15,
-    backgroundColor: "purple",
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-  },
-});

@@ -8,6 +8,8 @@ import {
   StatusBar,
   ScrollView,
   Dimensions,
+  Switch,
+  Modal,
 } from "react-native";
 import React, { useState } from "react";
 import * as Progress from "react-native-progress";
@@ -22,10 +24,19 @@ import {
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import CircularProgress from "react-native-circular-progress-indicator";
 import { BarChart } from "react-native-chart-kit";
+import Animated from "react-native-reanimated";
+import { Divider } from "react-native-elements";
 
 const Home = () => {
   const { width, height } = Dimensions.get("window");
+  const [isTaskEnabled, setIsTaskEnabled] = useState(false);
+  const toggleSwitch = () =>
+    setIsTaskEnabled((previousState) => !previousState);
+  const [isComEnabled, setIsComEnabled] = useState(false);
+  const toggleComSwitch = () =>
+    setIsComEnabled((previousState) => !previousState);
   const [active, setActive] = useState("Overview");
+  const [modal, setModal] = useState(false);
   const data = {
     labels: ["M", "T", "W", "T", "F", "S", "S"],
     datasets: [
@@ -34,6 +45,152 @@ const Home = () => {
       },
     ],
   };
+
+  const modalContent = () => (
+    <View style={styles.modalContainer}>
+      <View style={styles.modalItemsContainer}>
+        <Text
+          style={{
+            color: "gray",
+            fontSize: 20,
+            fontWeight: "bold",
+            alignSelf: "center",
+            textAlign: "center",
+          }}
+        >
+          ───────
+        </Text>
+        <View style={styles.modalC}>
+          <View style={styles.modalA}>
+            <FontAwesomeIcon
+              icon={solid("circle-check")}
+              size={20}
+              color={"white"}
+              style={{ marginRight: 15, marginLeft: 15 }}
+            />
+            <Text style={{ color: "white", marginLeft: 15 }}>Total Task</Text>
+          </View>
+
+          <Switch
+            trackColor={{ false: "white", true: "white" }}
+            thumbColor={isTaskEnabled ? "blue" : "gray"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isTaskEnabled}
+          />
+        </View>
+        <Divider width={0.4} color={"gray"} />
+        <View style={styles.modalC}>
+          <View style={styles.modalA}>
+            <FontAwesomeIcon
+              icon={solid("box")}
+              size={20}
+              color={"white"}
+              style={{ marginRight: 15, marginLeft: 15 }}
+            />
+            <Text style={{ color: "white", marginLeft: 15 }}>
+              Tasks Due Soon
+            </Text>
+          </View>
+
+          <Switch
+            disabled
+            trackColor={{ false: "gray", true: "white" }}
+            thumbColor={"gray"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={false}
+          />
+        </View>
+        <Divider width={0.4} color={"gray"} />
+        <View style={styles.modalC}>
+          <View style={styles.modalA}>
+            <FontAwesomeIcon
+              icon={solid("circle-check")}
+              size={20}
+              color={"blue"}
+              style={{ marginRight: 15, marginLeft: 15 }}
+            />
+            <Text style={{ color: "white", marginLeft: 15 }}>Completed</Text>
+          </View>
+
+          <Switch
+            trackColor={{ false: "white", true: "white" }}
+            thumbColor={isComEnabled ? "blue" : "gray"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleComSwitch}
+            value={isComEnabled}
+          />
+        </View>
+        <Divider width={0.4} color={"gray"} />
+        <View style={styles.modalC}>
+          <View style={styles.modalA}>
+            <FontAwesomeIcon
+              icon={solid("flag")}
+              size={20}
+              color={"white"}
+              style={{ marginRight: 15, marginLeft: 15 }}
+            />
+            <Text style={{ color: "white", marginLeft: 15 }}>Working On</Text>
+          </View>
+
+          <Switch
+            disabled
+            trackColor={{ false: "gray", true: "white" }}
+            thumbColor={"gray"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={false}
+          />
+        </View>
+        <Divider width={0.4} color={"gray"} />
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            marginTop: 30,
+            justifyContent: "space-between",
+            marginBottom: 15,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => setModal(false)}
+            style={{ marginLeft: 15 }}
+          >
+            <Text
+              style={{
+                color: "gray",
+                fontSize: 15,
+                marginHorizontal: 20,
+                marginVertical: 14,
+              }}
+            >
+              Cancel
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "blue",
+              borderRadius: 30,
+              marginRight: 15,
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontSize: 15,
+                fontWeight: "bold",
+                marginHorizontal: 20,
+                marginVertical: 14,
+              }}
+            >
+              Save Changes
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -155,7 +312,10 @@ const Home = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={{ marginRight: 15, justifyContent: "center" }}>
+        <TouchableOpacity
+          onPress={() => setModal(true)}
+          style={{ marginRight: 15, justifyContent: "center" }}
+        >
           <FontAwesomeIcon icon={solid("sliders")} size={20} color={"gray"} />
         </TouchableOpacity>
       </View>
@@ -213,13 +373,13 @@ const Home = () => {
           <Block
             txt={"Total Task"}
             num={16}
-            numColor={"yellow"}
+            numColor={"#E0E722"}
             icon={solid("tasks")}
           />
           <Block
             txt={"Completed"}
             num={32}
-            numColor={"green"}
+            numColor={"#44D62C"}
             icon={solid("list")}
           />
           <Block
@@ -301,10 +461,11 @@ const Home = () => {
                 value={68}
                 valueSuffix={"%"}
                 inActiveStrokeColor={"black"}
-                progressValueColor={"#fff"}
+                progressValueColor={"#44D62C"}
                 maxValue={100}
                 radius={40}
                 clockwise={false}
+                activeStrokeColor={"#44D62C"}
               />
             </View>
           </View>
@@ -389,6 +550,15 @@ const Home = () => {
           </View>
         </ScrollView>
       )}
+      <Modal
+        animated
+        animationType="slide"
+        visible={modal}
+        transparent
+        onRequestClose={() => setModal(false)}
+      >
+        {modalContent()}
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -473,5 +643,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0,0,0,0.7)",
+  },
+  modalItemsContainer: {
+    borderRadius: 15,
+    backgroundColor: "black",
+    padding: 16,
+    borderWidth: 1,
+    justifyContent: "center",
+    width: "95%",
+    alignSelf: "center",
+    marginBottom: 5,
+  },
+  modalC: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 15,
+    marginBottom: 15,
+  },
+  modalA: {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: 15,
   },
 });
