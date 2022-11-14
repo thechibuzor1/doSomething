@@ -4,7 +4,7 @@ import {
   Text,
   View,
   TouchableOpacity,
-  ScrollView,
+  StatusBar,
   Dimensions,
 } from "react-native";
 import React from "react";
@@ -17,8 +17,12 @@ import {
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { demoNotifications } from "../data";
 import { Divider } from "react-native-elements";
-const Screen3 = () => {
-  const { width, height } = Dimensions.get("window");
+import Animated, {
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
+const Screen3 = ({ setNavVisible }) => {
   const Notification = ({ props }) => (
     <View>
       <Text style={{ color: "gray", marginLeft: 30 }}>{props.header}</Text>
@@ -75,70 +79,90 @@ const Screen3 = () => {
       />
     </View>
   );
+  const translationY = useSharedValue(0);
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    translationY.value = event.contentOffset.y;
+  });
+  const handle = (e) => {
+    let windowHeight = Dimensions.get("window").height;
+    let height = e.nativeEvent.contentSize.height;
+    let offset = e.nativeEvent.contentOffset.y;
+    if (windowHeight + offset >= height) {
+      setNavVisible(false);
+    } else {
+      setNavVisible(true);
+    }
+  };
+
   return (
-    <View
-      style={{
-        backgroundColor: "black",
-        flex: 1,
-      }}
-    >
+    <>
+      <StatusBar barStyle="default" />
       <View
         style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: 15,
-          alignItems: "center",
-          alignContent: "center",
+          backgroundColor: "black",
+          flex: 1,
         }}
       >
-        <TouchableOpacity
+        <View
           style={{
-            marginLeft: 30,
-            borderRadius: 5,
-            borderWidth: 2,
-            borderColor: "gray",
-            height: 30,
-            justifyContent: "center",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 15,
+            alignItems: "center",
+            alignContent: "center",
           }}
         >
-          <FontAwesomeIcon
-            icon={solid("arrow-left")}
-            size={15}
-            color={"white"}
-            style={{ marginHorizontal: 5, marginVertical: 5 }}
+          <TouchableOpacity
+            style={{
+              marginLeft: 30,
+              borderRadius: 5,
+              borderWidth: 2,
+              borderColor: "gray",
+              height: 30,
+              justifyContent: "center",
+            }}
+          >
+            <FontAwesomeIcon
+              icon={solid("arrow-left")}
+              size={15}
+              color={"white"}
+              style={{ marginHorizontal: 5, marginVertical: 5 }}
+            />
+          </TouchableOpacity>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 20,
+              fontWeight: "bold",
+            }}
+          >
+            Notification
+          </Text>
+          <Image
+            source={require("../assets/octocat.png")}
+            style={{
+              height: 40,
+              width: 40,
+              marginRight: 25,
+              borderRadius: 20,
+            }}
           />
-        </TouchableOpacity>
-        <Text
+        </View>
+        <Animated.ScrollView
           style={{
-            color: "white",
-            fontSize: 20,
-            fontWeight: "bold",
+            marginTop: 30,
           }}
+          /* onScrollBeginDrag={() => setNavVisible(false)}
+        onScroll */
+          scrollEventThrottle={16}
         >
-          Notification
-        </Text>
-        <Image
-          source={require("../assets/octocat.png")}
-          style={{
-            height: 40,
-            width: 40,
-            marginRight: 25,
-            borderRadius: 20,
-          }}
-        />
+          {demoNotifications.map((data, index) => (
+            <Notification key={index} props={data} />
+          ))}
+        </Animated.ScrollView>
       </View>
-      <ScrollView
-        style={{
-          marginTop: 30,
-          marginBottom: 150,
-        }}
-      >
-        {demoNotifications.map((data, index) => (
-          <Notification key={index} props={data} />
-        ))}
-      </ScrollView>
-    </View>
+    </>
   );
 };
 

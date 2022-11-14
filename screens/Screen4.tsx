@@ -1,16 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, StatusBar } from "react-native";
 import React from "react";
 
 const Screen4 = () => {
   return (
-    <View
-      style={{
-        backgroundColor: "red",
-        flex: 1,
-      }}
-    >
-      <Text>Screen4</Text>
-    </View>
+    <>
+      <StatusBar barStyle="default" />
+      <View
+        style={{
+          backgroundColor: "red",
+          flex: 1,
+        }}
+      >
+        <Text>Screen4</Text>
+      </View>
+    </>
   );
 };
 

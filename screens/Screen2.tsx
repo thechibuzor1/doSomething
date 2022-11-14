@@ -3,7 +3,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Pressable,
+  StatusBar,
 } from "react-native";
 import React from "react";
 import CircularProgress from "react-native-circular-progress-indicator";
@@ -17,7 +17,7 @@ import {
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-const Screen2 = ({ setOuterScrollViewScrollEnabled }) => {
+const Screen2 = () => {
   const renderItem = (data) => (
     <View style={styles.rowFront}>
       <TaskBlock props={data.item} />
@@ -41,7 +41,6 @@ const Screen2 = ({ setOuterScrollViewScrollEnabled }) => {
   );
   const TaskBlock = ({ props }) => (
     <TouchableOpacity
-      onPress={() => setOuterScrollViewScrollEnabled(false)}
       style={{
         display: "flex",
         flexDirection: "row",
@@ -50,7 +49,7 @@ const Screen2 = ({ setOuterScrollViewScrollEnabled }) => {
         alignSelf: "center",
         backgroundColor: props.done ? "transparent" : "#8A868E",
         borderRadius: 15,
-        height: 70,
+        height: 90,
         borderWidth: props.done ? 2 : 0,
         borderColor: "#393D47",
         marginBottom: 15,
@@ -122,18 +121,13 @@ const Screen2 = ({ setOuterScrollViewScrollEnabled }) => {
     </TouchableOpacity>
   );
   return (
-    <View
-      style={{
-        backgroundColor: "black",
-        flex: 1,
-      }}
-    >
-      <Pressable
+    <>
+      <StatusBar barStyle="default" />
+      <View
         style={{
-          height: "100%",
-          width: "100%",
+          backgroundColor: "black",
+          flex: 1,
         }}
-        onPress={() => setOuterScrollViewScrollEnabled(true)}
       >
         <Text
           style={{
@@ -159,14 +153,14 @@ const Screen2 = ({ setOuterScrollViewScrollEnabled }) => {
             data={demoTasks}
             renderItem={renderItem}
             renderHiddenItem={renderHiddenItem}
-            rightOpenValue={-150}
+            rightOpenValue={-200}
             previewRowKey={"0"}
             previewOpenValue={-40}
             previewOpenDelay={3000}
           />
         </View>
-      </Pressable>
-    </View>
+      </View>
+    </>
   );
 };
 
@@ -193,6 +187,8 @@ const styles = StyleSheet.create({
     borderBottomColor: "#000000",
     borderBottomWidth: 1,
     justifyContent: "center",
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
   },
   rowBack: {
     alignItems: "center",
@@ -203,7 +199,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     width: "100%",
     alignSelf: "center",
-    height: 70,
+    height: 90,
   },
   backMore: {
     backgroundColor: "rgba(118, 118, 128, 0.02)",
@@ -219,8 +215,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "absolute",
     top: 0,
-    width: 75,
-    height: 70,
+    width: 90,
+    height: 90,
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
   },
@@ -230,7 +226,7 @@ const styles = StyleSheet.create({
   },
   backRightBtnRight: {
     backgroundColor: "#C5B4E3",
-    right: 75,
+    right: 90,
     borderBottomRightRadius: 0,
     borderTopRightRadius: 0,
     borderTopLeftRadius: 15,

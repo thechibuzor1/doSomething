@@ -25,6 +25,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 export default function Main({ navigation }) {
   const [outerScrollViewScrollEnabled, setOuterScrollViewScrollEnabled] =
     useState(true);
+  const [navVisible, setNavVisible] = useState(true);
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { width, height } = Dimensions.get("window");
   const scrollViewRef = useRef(null);
@@ -57,6 +58,7 @@ export default function Main({ navigation }) {
       bottom: 5,
       borderRadius: 15,
       zIndex: 999,
+      display: navVisible ? "flex" : "none",
     },
     semiCircle: {
       marginTop: 15,
@@ -94,13 +96,13 @@ export default function Main({ navigation }) {
             />
           </View>
           <View style={{ width, height }}>
-            <Screen3 />
+            <Screen3 setNavVisible={setNavVisible} />
           </View>
           <View style={{ width, height }}>
             <Screen4 />
           </View>
         </ScrollView>
-        <View style={styles.container}>
+       {/*  <View style={styles.container}>
           <TouchableOpacity
             onPress={() => {
               scrollViewRef.current?.scrollTo({ x: width * 0, animated: true });
@@ -177,7 +179,7 @@ export default function Main({ navigation }) {
               ]}
             ></View>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </SafeAreaView>
     </>
   );
