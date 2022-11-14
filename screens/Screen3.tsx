@@ -138,7 +138,7 @@ const Screen3 = ({ navigation }) => {
         </View>
         <Animated.ScrollView
           style={{
-            marginTop: 30,
+            marginTop: 15,
           }}
           /* onScrollBeginDrag={() => setNavVisible(false)}
         onScroll */

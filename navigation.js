@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Projects from "./screens/Projects";
 
 export default function RootNavigation() {
   const screenOptions = ({ route }) => ({
@@ -53,7 +54,7 @@ export default function RootNavigation() {
     <NavigationContainer>
       <Tab.Navigator initialRouteName="Home" screenOptions={screenOptions}>
         <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Screen2" component={Screen2} />
+        <Tab.Screen name="Screen2" component={Projects} />
         <Tab.Screen name="Add" component={Screen2} />
         <Tab.Screen name="Screen3" component={Screen3} />
         <Tab.Screen name="Screen4" component={Screen4} />

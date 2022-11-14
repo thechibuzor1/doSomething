@@ -136,3 +136,47 @@ export const demoNotifications = [
     color: "#A8A9AD",
   },
 ];
+export const demoProjects = [
+  {
+    id: 1,
+    name: "Unity Dashboard",
+    progress: 14,
+    total: 20,
+    desc: "Design",
+  },
+  {
+    id: 2,
+    name: "Instagram Shot",
+    progress: 18,
+    total: 30,
+    desc: "Marketing",
+  },
+  {
+    id: 3,
+    name: "Cubbies",
+    progress: 15,
+    total: 20,
+    desc: "Design",
+  },
+  {
+    id: 4,
+    name: "Open Mind🚀",
+    progress: 14,
+    total: 20,
+    desc: "Design",
+  },
+  {
+    id: 5,
+    name: "UI8 platform",
+    progress: 6,
+    total: 20,
+    desc: "Design",
+  },
+  {
+    id: 6,
+    name: "3D Characters Inc.",
+    progress: 14,
+    total: 20,
+    desc: "Deveplopment",
+  },
+];
