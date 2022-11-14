@@ -22,7 +22,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from "react-native-reanimated";
-const Screen3 = ({ setNavVisible }) => {
+const Screen3 = ({ navigation }) => {
   const Notification = ({ props }) => (
     <View>
       <Text style={{ color: "gray", marginLeft: 30 }}>{props.header}</Text>
@@ -79,20 +79,6 @@ const Screen3 = ({ setNavVisible }) => {
       />
     </View>
   );
-  const translationY = useSharedValue(0);
-  const scrollHandler = useAnimatedScrollHandler((event) => {
-    translationY.value = event.contentOffset.y;
-  });
-  const handle = (e) => {
-    let windowHeight = Dimensions.get("window").height;
-    let height = e.nativeEvent.contentSize.height;
-    let offset = e.nativeEvent.contentOffset.y;
-    if (windowHeight + offset >= height) {
-      setNavVisible(false);
-    } else {
-      setNavVisible(true);
-    }
-  };
 
   return (
     <>
@@ -122,6 +108,7 @@ const Screen3 = ({ setNavVisible }) => {
               height: 30,
               justifyContent: "center",
             }}
+            onPress={() => navigation.goBack()}
           >
             <FontAwesomeIcon
               icon={solid("arrow-left")}

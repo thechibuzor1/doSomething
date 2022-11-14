@@ -48,7 +48,6 @@ const Screen2 = () => {
         width: "100%",
         alignSelf: "center",
         backgroundColor: props.done ? "transparent" : "#8A868E",
-        borderRadius: 15,
         height: 90,
         borderWidth: props.done ? 2 : 0,
         borderColor: "#393D47",
@@ -187,8 +186,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "#000000",
     borderBottomWidth: 1,
     justifyContent: "center",
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
   },
   rowBack: {
     alignItems: "center",
@@ -217,8 +214,6 @@ const styles = StyleSheet.create({
     top: 0,
     width: 90,
     height: 90,
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
   },
   backRightBtnLeft: {
     backgroundColor: "#44D62C",
@@ -227,9 +222,5 @@ const styles = StyleSheet.create({
   backRightBtnRight: {
     backgroundColor: "#C5B4E3",
     right: 90,
-    borderBottomRightRadius: 0,
-    borderTopRightRadius: 0,
-    borderTopLeftRadius: 15,
-    borderBottomLeftRadius: 15,
   },
 });
