@@ -1,8 +1,5 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./screens/Home";
 import Screen2 from "./screens/Screen2";
-import Main from "./Main";
 import Screen3 from "./screens/Screen3";
 import Screen4 from "./screens/Screen4";
 import {
@@ -14,6 +11,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Projects from "./screens/Projects";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 export default function RootNavigation() {
   const screenOptions = ({ route }) => ({
@@ -51,14 +49,12 @@ export default function RootNavigation() {
 
   const Tab = createBottomTabNavigator();
   return (
-    <NavigationContainer>
-      <Tab.Navigator initialRouteName="Home" screenOptions={screenOptions}>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Screen2" component={Projects} />
-        <Tab.Screen name="Add" component={Screen2} />
-        <Tab.Screen name="Screen3" component={Screen3} />
-        <Tab.Screen name="Screen4" component={Screen4} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator initialRouteName="Home" screenOptions={screenOptions}>
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Screen2" component={Projects} />
+      <Tab.Screen name="Add" component={Screen2} />
+      <Tab.Screen name="Screen3" component={Screen3} />
+      <Tab.Screen name="Screen4" component={Screen4} />
+    </Tab.Navigator>
   );
 }

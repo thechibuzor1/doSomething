@@ -1,7 +1,6 @@
 import React from "react";
-
-import RootNavigation from "./navigation";
+import StackNav from "./mainNavigation";
 
 export default function App() {
-  return <RootNavigation />;
+  return <StackNav />;
 }

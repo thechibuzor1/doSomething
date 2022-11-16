@@ -180,3 +180,17 @@ export const demoProjects = [
     desc: "Deveplopment",
   },
 ];
+export const demoProjectSubcategories = [
+  {
+    id: 1,
+    name: "Ideas",
+  },
+  {
+    id: 2,
+    name: "Design",
+  },
+  {
+    id: 3,
+    name: "Structure",
+  },
+];

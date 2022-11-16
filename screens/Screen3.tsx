@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Dimensions,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -17,11 +18,7 @@ import {
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { demoNotifications } from "../data";
 import { Divider } from "react-native-elements";
-import Animated, {
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  useSharedValue,
-} from "react-native-reanimated";
+
 const Screen3 = ({ navigation }) => {
   const Notification = ({ props }) => (
     <View>
@@ -136,7 +133,7 @@ const Screen3 = ({ navigation }) => {
             }}
           />
         </View>
-        <Animated.ScrollView
+        <ScrollView
           style={{
             marginTop: 15,
           }}
@@ -147,7 +144,7 @@ const Screen3 = ({ navigation }) => {
           {demoNotifications.map((data, index) => (
             <Notification key={index} props={data} />
           ))}
-        </Animated.ScrollView>
+        </ScrollView>
       </View>
     </>
   );

@@ -19,6 +19,9 @@ import * as Progress from "react-native-progress";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { demoProjects } from "../data";
 const { width, height } = Dimensions.get("window");
+
+const styles = StyleSheet.create({});
+
 const colors = [
   "#4D4DFF",
   "#E5E1E6",
@@ -30,10 +33,17 @@ const colors = [
   "#FFDE00",
 ];
 
-const Component = ({ data }) => {
+const Component = ({ navigation, data }) => {
   const color = colors[Math.floor(Math.random() * colors.length)];
   return (
-    <TouchableOpacity activeOpacity={0.7}>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={() =>
+        navigation.navigate("Info", {
+          task: data,
+        })
+      }
+    >
       <View
         style={{
           display: "flex",
@@ -97,7 +107,7 @@ const Component = ({ data }) => {
       <Progress.Bar
         progress={data.progress / data.total}
         width={width - 35}
-        height={3}
+        height={4}
         color={color}
         unfilledColor={"white"}
         style={{ marginLeft: 15, marginTop: 10 }}
@@ -172,6 +182,7 @@ const Projects = ({ navigation }) => {
           marginTop: 15,
           alignContent: "center",
           alignItems: "center",
+          marginBottom: 15,
         }}
       >
         <View
@@ -267,12 +278,12 @@ const Projects = ({ navigation }) => {
       <FlatList
         data={demoProjects}
         numColumns={1}
-        renderItem={({ item }) => <Component data={item} />}
+        renderItem={({ item }) => (
+          <Component navigation={navigation} data={item} />
+        )}
       />
     </View>
   );
 };
 
 export default Projects;
-
-const styles = StyleSheet.create({});
