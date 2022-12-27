@@ -27,7 +27,7 @@ import { BarChart } from "react-native-chart-kit";
 import Animated from "react-native-reanimated";
 import { Divider } from "react-native-elements";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const { width, height } = Dimensions.get("window");
   const [isTaskEnabled, setIsTaskEnabled] = useState(false);
   const toggleSwitch = () =>
@@ -216,15 +216,16 @@ const Home = () => {
             Dashboard
           </Text>
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
-            <FontAwesomeIcon
-              icon={faRocketchat}
-              size={25}
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Chat")}
               style={{
                 marginRight: 30,
                 alignSelf: "center",
               }}
-              color={"white"}
-            />
+            >
+              <FontAwesomeIcon icon={faRocketchat} size={25} color={"white"} />
+            </TouchableOpacity>
+
             <Image
               source={require("../assets/octocat.png")}
               style={{
@@ -579,8 +580,8 @@ const Block = (props) => (
       width: "90%",
       alignSelf: "center",
       marginTop: 15,
-      backgroundColor: "gray",
-      height: 60,
+      backgroundColor: "#393D47",
+      height: 70,
       alignItems: "center",
       alignContent: "center",
       borderRadius: 15,

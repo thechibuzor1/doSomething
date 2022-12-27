@@ -6,6 +6,8 @@ export const demoTasks = [
     deadline: "Dec 5",
     percent: 57,
     done: false,
+    profile:
+      "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556306-b1653ba61c6aef7a7d333da0299c3b40.jpg",
   },
   {
     key: 2,
@@ -14,6 +16,8 @@ export const demoTasks = [
     deadline: "Dec 2",
     percent: 100,
     done: true,
+    profile:
+      "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556433-56eabe925fc2d2cdb24d996615990454.jpg",
   },
   {
     key: 3,
@@ -22,6 +26,8 @@ export const demoTasks = [
     deadline: "Nov 8",
     percent: 15,
     done: false,
+    profile:
+      "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556289-5857c753bc0f44d20a611a467d90e7ff.jpg",
   },
 ];
 export const demoNotifications = [

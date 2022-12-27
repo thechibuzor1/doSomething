@@ -7,9 +7,10 @@ import {
   FlatList,
   Dimensions,
   Modal,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
-import CircularProgress from "react-native-circular-progress-indicator";
+import CheckBox from "expo-checkbox";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { demoProjects, demoTasks, demoProjectSubcategories } from "../data";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -22,6 +23,8 @@ import {
 import * as Progress from "react-native-progress";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Divider } from "react-native-elements";
+import { RadioButton } from "react-native-paper";
+
 const { width, height } = Dimensions.get("window");
 const colors = [
   "#4D4DFF",
@@ -161,6 +164,102 @@ const modalContent = () => (
     </View>
   </View>
 );
+
+const RadioModal = () => {
+  const [checked, setChecked] = useState("board");
+
+  return (
+    <View style={[styles.modalContainer, { justifyContent: "center" }]}>
+      <View style={styles.radio}>
+        <RadioButton.Group
+          onValueChange={(value) => setChecked(value)}
+          value={checked}
+        >
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => setChecked("list")}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 15,
+            }}
+          >
+            <View
+              style={{
+                marginLeft: 5,
+                alignContent: "center",
+                alignItems: "center",
+
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              <FontAwesomeIcon
+                style={{
+                  marginRight: 15,
+                }}
+                size={25}
+                icon={solid("list-check")}
+                color={"white"}
+              />
+              <Text style={{ color: "white" }}>List</Text>
+            </View>
+            <View style={{}}>
+              <RadioButton
+                value="list"
+                color="blue"
+                uncheckedColor="blue"
+                status={checked === "list" ? "checked" : "unchecked"}
+              />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => setChecked("board")}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <View
+              style={{
+                marginLeft: 5,
+                alignContent: "center",
+                alignItems: "center",
+
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              <FontAwesomeIcon
+                style={{
+                  marginRight: 15,
+                }}
+                size={25}
+                icon={solid("border-all")}
+                color={"white"}
+              />
+              <Text style={{ color: "white" }}>Board</Text>
+            </View>
+            <View style={{}}>
+              <RadioButton
+                value="board"
+                color="blue"
+                uncheckedColor="blue"
+                status={checked === "board" ? "checked" : "unchecked"}
+              />
+            </View>
+          </TouchableOpacity>
+        </RadioButton.Group>
+      </View>
+    </View>
+  );
+};
 const renderItem = (data) => (
   <View style={styles.rowFront}>
     <TaskBlock props={data.item} />
@@ -169,97 +268,122 @@ const renderItem = (data) => (
 const renderHiddenItem = (data, rowMap) => (
   <>
     <View style={styles.rowBack}>
-      <TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnRight]}>
+      <TouchableOpacity
+        style={[styles.backRightBtn, styles.backRightBtnRight]}
+        onPress={() => console.log(data)}
+      >
         <FontAwesomeIcon icon={solid("trash-can")} color={"black"} />
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnLeft]}>
-        <FontAwesomeIcon icon={solid("check")} color={"black"} />
+      <TouchableOpacity
+        style={[
+          styles.backRightBtn,
+          styles.backRightBtnLeft,
+          data.item.done && { backgroundColor: "#D22730" },
+        ]}
+        onPress={() => (data.item.done = !data.item.done)}
+      >
+        {data.item.done ? (
+          <FontAwesomeIcon icon={solid("xmark")} color={"black"} />
+        ) : (
+          <FontAwesomeIcon icon={solid("check")} color={"black"} />
+        )}
       </TouchableOpacity>
     </View>
   </>
 );
-const TaskBlock = ({ props }) => (
-  <TouchableOpacity
-    style={{
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      width: "100%",
-      alignSelf: "center",
-      backgroundColor: props.done ? "transparent" : "#393D47",
-      height: 90,
-      borderWidth: props.done ? 2 : 0,
-      borderColor: "#393D47",
-      marginBottom: 15,
-    }}
-  >
+const TaskBlock = ({ props }) => {
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  return (
     <View
       style={{
         display: "flex",
         flexDirection: "row",
-        marginLeft: 15,
+        justifyContent: "space-between",
+        width: "100%",
         alignSelf: "center",
+        backgroundColor: props.done ? "transparent" : "#393D47",
+        height: 90,
+        borderWidth: props.done ? 2 : 0,
+        borderColor: "#393D47",
+        marginBottom: 15,
       }}
     >
-      <CircularProgress
-        value={props.percent}
-        valueSuffix={"%"}
-        inActiveStrokeColor={"black"}
-        progressValueColor={
-          (props.percent < 75 && props.percent > 25 && "#E0E722") ||
-          (props.percent < 25 && "#D22730") ||
-          (props.percent > 75 && "#44D62C")
-        }
-        maxValue={100}
-        radius={25}
-        clockwise={false}
-        activeStrokeWidth={3}
-        activeStrokeColor={
-          (props.percent < 75 && props.percent > 25 && "#E0E722") ||
-          (props.percent < 25 && "#D22730") ||
-          (props.percent > 75 && "#44D62C")
-        }
-      />
-      <View style={{ marginLeft: 15 }}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          marginLeft: 15,
+          alignSelf: "center",
+        }}
+      >
+        <View style={{ marginLeft: 15 }}>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: "bold",
+              fontStyle: "normal",
+              color: "white",
+            }}
+          >
+            {props.name}
+          </Text>
+          <Text
+            style={{
+              fontSize: 12,
+              fontWeight: "500",
+              fontStyle: "normal",
+              color: "#D9D9D6",
+            }}
+          >
+            {props.desc}
+          </Text>
+        </View>
+      </View>
+
+      <View
+        style={{
+          justifyContent: "center",
+        }}
+      >
+        <Image
+          source={{ uri: props.profile }}
+          style={{
+            height: 40,
+            width: 40,
+            marginRight: 15,
+            borderRadius: 20,
+            alignSelf: "center",
+          }}
+        />
         <Text
           style={{
-            fontSize: 15,
+            alignSelf: "center",
+            fontSize: 14,
             fontWeight: "bold",
             fontStyle: "normal",
-            color: "white",
+            color: props.done ? "#393D47" : "#D22730",
+            marginRight: 15,
           }}
         >
-          {props.name}
-        </Text>
-        <Text
-          style={{
-            fontSize: 12,
-            fontWeight: "500",
-            fontStyle: "normal",
-            color: "#D9D9D6",
-          }}
-        >
-          {props.desc}
+          {props.deadline}
         </Text>
       </View>
     </View>
-
-    <Text
-      style={{
-        alignSelf: "center",
-        fontSize: 14,
-        fontWeight: "bold",
-        fontStyle: "normal",
-        color: props.done ? "#393D47" : "#D22730",
-        marginRight: 15,
-      }}
-    >
-      {props.deadline}
-    </Text>
-  </TouchableOpacity>
-);
+  );
+};
+export const Task = ()=>(
+<SwipeListView
+          data={demoTasks}
+          renderItem={renderItem}
+          renderHiddenItem={renderHiddenItem}
+          rightOpenValue={-200}
+          previewRowKey={"0"}
+          previewOpenValue={-40}
+          previewOpenDelay={3000}
+        />
+)
 const DropDown = ({ item }) => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   return (
     <View
       style={{
@@ -296,25 +420,16 @@ const DropDown = ({ item }) => {
           />
         )}
       </TouchableOpacity>
-      {show && (
-        <SwipeListView
-          data={demoTasks}
-          renderItem={renderItem}
-          renderHiddenItem={renderHiddenItem}
-          rightOpenValue={-200}
-          previewRowKey={"0"}
-          previewOpenValue={-40}
-          previewOpenDelay={3000}
-        />
-      )}
+      {show && <Task/>}
     </View>
   );
 };
 const Screen2 = ({ route }) => {
   const { task } = route.params;
-  const [active, setActive] = useState("all");
-  const [modal, setModal] = useState(false);
-  const [favourite, setFavourite] = useState(false);
+  const [active, setActive] = useState<string>("all");
+  const [modal, setModal] = useState<boolean>(false);
+  const [favourite, setFavourite] = useState<boolean>(false);
+  const [radio, setRadio] = useState<boolean>(false);
 
   return (
     <>
@@ -327,6 +442,15 @@ const Screen2 = ({ route }) => {
         onRequestClose={() => setModal(false)}
       >
         {modalContent()}
+      </Modal>
+      <Modal
+        animated
+        animationType="slide"
+        visible={radio}
+        transparent
+        onRequestClose={() => setRadio(false)}
+      >
+        {RadioModal()}
       </Modal>
       <View
         style={{
@@ -485,7 +609,7 @@ const Screen2 = ({ route }) => {
               </Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => setRadio(true)}>
             <FontAwesomeIcon
               style={{ marginRight: 15 }}
               icon={solid("sliders")}
@@ -523,6 +647,15 @@ const styles = StyleSheet.create({
     width: "95%",
     alignSelf: "center",
     marginBottom: 5,
+  },
+  radio: {
+    borderRadius: 15,
+    backgroundColor: "black",
+    padding: 16,
+    borderWidth: 1,
+    marginBottom: 5,
+    width: "90%",
+    alignSelf: "center",
   },
   modalC: {
     display: "flex",
@@ -590,7 +723,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   backRightBtnRight: {
-    backgroundColor: "#C5B4E3",
+    backgroundColor: "#ffffff",
     right: 90,
   },
 });

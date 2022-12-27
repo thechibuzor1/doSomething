@@ -2,6 +2,7 @@ import Home from "./screens/Home";
 import Screen2 from "./screens/Screen2";
 import Screen3 from "./screens/Screen3";
 import Screen4 from "./screens/Screen4";
+import { Modal } from "react-native";
 import {
   solid,
   regular,
@@ -48,6 +49,7 @@ export default function RootNavigation() {
   });
 
   const Tab = createBottomTabNavigator();
+
   return (
     <Tab.Navigator initialRouteName="Home" screenOptions={screenOptions}>
       <Tab.Screen name="Home" component={Home} />
