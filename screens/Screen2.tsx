@@ -24,10 +24,10 @@ import * as Progress from "react-native-progress";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Divider } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
-import { color } from "./Projects";
+import { colors } from "./Projects";
 
+const color = colors[Math.floor(Math.random() * colors.length)];
 const { width, height } = Dimensions.get("window");
- 
 
 const modalContent = () => (
   <View style={styles.modalContainer}>
@@ -362,17 +362,17 @@ const TaskBlock = ({ props }) => {
     </View>
   );
 };
-export const Task = ()=>(
-<SwipeListView
-          data={demoTasks}
-          renderItem={renderItem}
-          renderHiddenItem={renderHiddenItem}
-          rightOpenValue={-200}
-          previewRowKey={"0"}
-          previewOpenValue={-40}
-          previewOpenDelay={3000}
-        />
-)
+export const Task = () => (
+  <SwipeListView
+    data={demoTasks}
+    renderItem={renderItem}
+    renderHiddenItem={renderHiddenItem}
+    rightOpenValue={-200}
+    previewRowKey={"0"}
+    previewOpenValue={-40}
+    previewOpenDelay={3000}
+  />
+);
 const DropDown = ({ item }) => {
   const [show, setShow] = useState(false);
   return (
@@ -411,7 +411,7 @@ const DropDown = ({ item }) => {
           />
         )}
       </TouchableOpacity>
-      {show && <Task/>}
+      {show && <Task />}
     </View>
   );
 };

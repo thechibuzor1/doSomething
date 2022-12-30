@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
-import { color } from "../screens/Projects";
+import { colors } from "../screens/Projects";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -8,6 +8,7 @@ import { TextInput } from "react-native-paper";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const CreateTaskContent = () => {
+
   const [dueDate, setDueDate] = useState<string>("Due Date");
   const [dueTime, setDueTime] = useState<string>("Today");
   const [open, setOpen] = useState<boolean>(false);
@@ -174,7 +175,7 @@ const CreateTaskContent = () => {
 };
 
 export default CreateTaskContent;
-
+const color = colors[Math.floor(Math.random() * colors.length)];
 const styles = StyleSheet.create({
   img: {
     height: 40,

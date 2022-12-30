@@ -32,8 +32,8 @@ export const colors = [
   "#C724B1",
   "#FFDE00",
 ];
-export const color = colors[Math.floor(Math.random() * colors.length)];
 const Component = ({ navigation, data }) => {
+  const colorInUse = colors[Math.floor(Math.random() * colors.length)];
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -62,7 +62,7 @@ const Component = ({ navigation, data }) => {
         >
           <View
             style={{
-              backgroundColor: color,
+              backgroundColor: colorInUse,
               alignContent: "center",
               height: 50,
               width: 50,
@@ -89,7 +89,7 @@ const Component = ({ navigation, data }) => {
         <View
           style={{
             marginRight: 15,
-            backgroundColor: color,
+            backgroundColor: colorInUse,
             borderRadius: 30,
             height: 20,
             width: 40,
@@ -98,7 +98,7 @@ const Component = ({ navigation, data }) => {
             alignContent: "center",
           }}
         >
-          <Text style={{ color: "white", fontSize: 12 }}>
+          <Text style={{ color: "black", fontSize: 12 }}>
             {data.progress}/{data.total}
           </Text>
         </View>
@@ -107,7 +107,7 @@ const Component = ({ navigation, data }) => {
         progress={data.progress / data.total}
         width={width - 35}
         height={4}
-        color={color}
+        color={colorInUse}
         unfilledColor={"white"}
         style={{ marginLeft: 15, marginTop: 10 }}
       />
