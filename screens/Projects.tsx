@@ -22,7 +22,7 @@ const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({});
 
-const colors = [
+export const colors = [
   "#4D4DFF",
   "#E5E1E6",
   "#00AE58",
@@ -32,9 +32,8 @@ const colors = [
   "#C724B1",
   "#FFDE00",
 ];
-
+export const color = colors[Math.floor(Math.random() * colors.length)];
 const Component = ({ navigation, data }) => {
-  const color = colors[Math.floor(Math.random() * colors.length)];
   return (
     <TouchableOpacity
       activeOpacity={0.7}

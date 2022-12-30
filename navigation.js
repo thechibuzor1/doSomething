@@ -1,20 +1,14 @@
 import Home from "./screens/Home";
-import Screen2 from "./screens/Screen2";
+
 import Screen3 from "./screens/Screen3";
 import Screen4 from "./screens/Screen4";
-import { Modal } from "react-native";
-import {
-  solid,
-  regular,
-  brands,
-  icon,
-} from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { View } from "react-native";
+
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Projects from "./screens/Projects";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-export default function RootNavigation() {
+export default function RootNavigation({ navigation }) {
   const screenOptions = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
       let iconName;
@@ -40,6 +34,7 @@ export default function RootNavigation() {
     },
     tabBarActiveTintColor: "#ffffff",
     tabBarInactiveTintColor: "gray",
+    tabBarHideOnKeyboard: true,
     headerShown: false,
     tabBarStyle: {
       backgroundColor: "#000000",
@@ -50,11 +45,24 @@ export default function RootNavigation() {
 
   const Tab = createBottomTabNavigator();
 
+  const ModalCom = () => (
+    <View style={{ flex: 1, backgroundColor: "blue" }}></View>
+  );
+
   return (
     <Tab.Navigator initialRouteName="Home" screenOptions={screenOptions}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Screen2" component={Projects} />
-      <Tab.Screen name="Add" component={Screen2} />
+      <Tab.Screen
+        name="Add"
+        component={ModalCom}
+        listeners={({ navigation }) => ({
+          tabPress: (event) => {
+            event.preventDefault();
+            navigation.navigate("New");
+          },
+        })}
+      />
       <Tab.Screen name="Screen3" component={Screen3} />
       <Tab.Screen name="Screen4" component={Screen4} />
     </Tab.Navigator>

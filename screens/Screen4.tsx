@@ -67,7 +67,7 @@ const Screen4 = () => {
                 marginLeft: 5,
                 width: 250,
                 marginRight: 5,
-                height: "100%",
+                height: 40,
                 backgroundColor: "transparent",
               }}
               theme={{ colors: { text: "white" } }}

@@ -4,6 +4,8 @@ import RootNavigation from "./navigation";
 import Projects from "./screens/Projects";
 import Screen2 from "./screens/Screen2";
 import ChatHome from "./screens/ChatHome";
+import New from "./screens/New";
+
 
 export default function StackNav() {
   const Stack = createStackNavigator();
@@ -11,6 +13,7 @@ export default function StackNav() {
   const screenOptions = {
     headerShown: false,
     animationEnabled: false,
+    presentation: "modal",
   };
 
   return (
@@ -19,6 +22,11 @@ export default function StackNav() {
         <Stack.Screen name="Tab" component={RootNavigation} />
         <Stack.Screen name="Info" component={Screen2} />
         <Stack.Screen name="Chat" component={ChatHome} />
+        <Stack.Screen
+          name="New"
+          component={New}
+          options={{ animationEnabled: true }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

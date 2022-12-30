@@ -24,19 +24,10 @@ import * as Progress from "react-native-progress";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Divider } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
+import { color } from "./Projects";
 
 const { width, height } = Dimensions.get("window");
-const colors = [
-  "#4D4DFF",
-  "#E5E1E6",
-  "#00AE58",
-  "#FFAD00",
-  "#FB48C4",
-  "#ED1D24",
-  "#C724B1",
-  "#FFDE00",
-];
-const color = colors[Math.floor(Math.random() * colors.length)];
+ 
 
 const modalContent = () => (
   <View style={styles.modalContainer}>
