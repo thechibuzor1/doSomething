@@ -8,7 +8,6 @@ import { TextInput } from "react-native-paper";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const CreateTaskContent = () => {
-
   const [dueDate, setDueDate] = useState<string>("Due Date");
   const [dueTime, setDueTime] = useState<string>("Today");
   const [open, setOpen] = useState<boolean>(false);
@@ -17,7 +16,7 @@ const CreateTaskContent = () => {
     { label: "Unity Dashboard", value: "unity dashboard" },
     { label: "UI8 Products", value: "ui8 products" },
   ]);
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState<boolean>(false);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -68,6 +67,7 @@ const CreateTaskContent = () => {
             placeholderTextColor={"gray"}
             style={styles.taskInputField}
             theme={{ colors: { text: "white" } }}
+            autoFocus
           />
           <TouchableOpacity>
             <FontAwesomeIcon

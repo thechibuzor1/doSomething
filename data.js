@@ -200,3 +200,91 @@ export const demoProjectSubcategories = [
     name: "Structure",
   },
 ];
+
+export const profiles = [
+  {
+    name: "Greta Smith",
+    role: "Project Mangaer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556284-eb8577b4afda090e4b27ec251d841a9d.jpg",
+  },
+  {
+    name: "Jenna B.",
+    role: "Senior Software Developer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556289-5857c753bc0f44d20a611a467d90e7ff.jpg",
+  },
+  {
+    name: "Sara Rangelh",
+    role: "UI/UX Designer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556286-fff6444b4ca80b7d6c83b5dd8535509b.jpg",
+  },
+  {
+    name: "Maia Scott",
+    role: "Junior Software Developer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556293-2f73b13ecb577a451aae3b2dd3b2ee70.jpg",
+  },
+  {
+    name: "Harley Noble",
+    role: "Senior Software Developer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556433-56eabe925fc2d2cdb24d996615990454.jpg",
+  },
+  {
+    name: "Kaley Dunlap",
+    role: "Dev Ops",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556323-843ab132e6419a3ca3a987dfb7980e5b.jpg",
+  },
+  {
+    name: "Alessandra Rowland",
+    role: "Dev Ops",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613493011-fb94e1f06f6e5c1b6445569e523c0cca.jpg",
+  },
+  {
+    name: "Evelyn Gould",
+    role: "Dev Ops",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556313-5c7c71368902ac4a303898bb63e194f9.jpg",
+  },
+  {
+    name: "Eugene Reid",
+    role: "UI/UX Designer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613493019-00db9abe105b6344772d6782f625d535.jpg",
+  },
+  {
+    name: "Andrew Miranda",
+    role: "Junior Software Developer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613493013-c7a42dfd4b95a442cb5e8d3a20fe1a92.jpg",
+  },
+  {
+    name: "Carly Moran",
+    role: "Junior Software Developer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613492976-2a458ea8f11a69d4fcb08da8463f1fb5.jpg",
+  },
+  {
+    name: "Susan Ellison",
+    role: "Project Mangaer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556318-e0ccaa67321cc836b0f8a99a7079005b.jpg",
+  },
+  {
+    name: "Janet Armstrong",
+    role: "Senior Software Developer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556298-e130a53a4dccb8a305165dbbabc5de7d.jpg",
+  },
+  {
+    name: "Camila Yang",
+    role: "Senior Software Developer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556306-b1653ba61c6aef7a7d333da0299c3b40.jpg",
+  },
+  {
+    name: "Alison Howe",
+    role: "Senior Software Developer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613492973-f2a8f22bffbef096f27fcdafca98fe71.jpg",
+  },
+  {
+    name: "Hope Pruitt",
+    role: "Senior Software Developer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556437-749de748458826980ce6c16e152442f2.jpg",
+  },
+  {
+    name: "Aydin Cooley",
+    role: "Senior Software Developer",
+    uri: "https://mediaslide-europe.storage.googleapis.com/metromodels/pictures/2460/6727/large-1613556291-b63015197e28b54dcf0be76f7fc2f14d.jpg",
+  },
+];

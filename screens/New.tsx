@@ -10,14 +10,14 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Divider } from "react-native-elements";
-import DropDownPicker from "react-native-dropdown-picker";
-import { color } from "./Projects";
-import { TextInput } from "react-native-paper";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CreateTaskContent from "../Components/NewTask";
+import NewProject from "../Components/NewProject";
+import CreateTeam from "../Components/CreateTeam";
 
 const New = ({ navigation }) => {
   const [task, setTask] = useState<boolean>(false);
+  const [project, setProject] = useState<boolean>(false);
+  const [team, setTeam] = useState<boolean>(false);
 
   return (
     <>
@@ -30,6 +30,24 @@ const New = ({ navigation }) => {
       >
         {CreateTaskContent()}
       </Modal>
+      <Modal
+        animated
+        animationType="slide"
+        visible={team}
+        transparent
+        onRequestClose={() => setTeam(false)}
+      >
+        {CreateTeam({ navigation })}
+      </Modal>
+      <Modal
+        animated
+        animationType="slide"
+        visible={project}
+        transparent
+        onRequestClose={() => setProject(false)}
+      >
+        {NewProject({ navigation })}
+      </Modal>
       <View style={styles.modalContainer}>
         <View style={styles.modalItemsContainer}>
           <Text style={styles.modalHead}>───────</Text>
@@ -39,9 +57,17 @@ const New = ({ navigation }) => {
             onPress={() => setTask(true)}
           />
           <Divider width={0.4} color={"gray"} />
-          <Items name="Create Project" icon={solid("diagram-project")} />
+          <Items
+            onPress={() => setProject(true)}
+            name="Create Project"
+            icon={solid("diagram-project")}
+          />
           <Divider width={0.4} color={"gray"} />
-          <Items name="Create Team" icon={solid("people-group")} />
+          <Items
+            onPress={() => setTeam(true)}
+            name="Create Team"
+            icon={solid("people-group")}
+          />
           <Divider width={0.4} color={"gray"} />
           <Items name="Create Event" icon={solid("calendar-days")} />
           <Divider width={0.4} color={"gray"} />
