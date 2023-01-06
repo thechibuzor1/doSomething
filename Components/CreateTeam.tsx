@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Image,
   ScrollView,
+  FlatList,
 } from "react-native";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -14,7 +15,42 @@ import { TextInput } from "react-native-paper";
 import CheckBox from "expo-checkbox";
 import { profiles } from "../data";
 
+let members = [];
+
+function arrayRemove(arr, value) {
+  return arr.filter(function (ele) {
+    return ele != value;
+  });
+}
+
+function handleMember(props) {
+  if (members.includes(props)) {
+    members = arrayRemove(members, props);
+    console.log(members.length);
+  } else {
+    members.push(props);
+    console.log(members.length);
+  }
+}
+
 const CreateTeam = ({ navigation }) => {
+  const [searchText, setSearchText] = useState("");
+  const [searchRes, setSearchRes] = useState(profiles);
+  function handleSearch(text) {
+    if (text !== "") {
+      const results = profiles.filter((profile) => {
+        return profile.name.toLowerCase().startsWith(text.toLowerCase());
+        // Use the toLowerCase() method to make it case-insensitive
+      });
+      setSearchRes(results);
+    } else {
+      setSearchRes(profiles);
+      // If the text field is empty, show all users
+    }
+
+    setSearchText(text);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -94,6 +130,7 @@ const CreateTeam = ({ navigation }) => {
           />
 
           <TextInput
+            value={searchText}
             placeholder="Search"
             placeholderTextColor={"gray"}
             style={{
@@ -102,8 +139,10 @@ const CreateTeam = ({ navigation }) => {
               marginRight: 5,
               height: 40,
               backgroundColor: "transparent",
+              borderRadius: 10,
             }}
             theme={{ colors: { text: "white" } }}
+            onChangeText={(text) => handleSearch(text)}
           />
           <TouchableOpacity>
             <FontAwesomeIcon
@@ -117,9 +156,13 @@ const CreateTeam = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
-        <ScrollView style={{ marginBottom: 15 }}>
-          {profiles.map((profile) => Assign(profile))}
-        </ScrollView>
+
+        <FlatList
+          style={{ marginBottom: 15 }}
+          data={searchRes}
+          renderItem={({ item, index }) => <Assign props={item} />}
+        />
+
         <View
           style={{
             alignSelf: "flex-end",
@@ -160,14 +203,17 @@ const CreateTeam = ({ navigation }) => {
 
 export default CreateTeam;
 
-const Assign = (props) => {
+const Assign = ({ props }) => {
   const [toggleCheckBox, setToggleCheckBox] = useState<boolean>(false);
 
   return (
     <TouchableOpacity
       key={props.name}
       activeOpacity={0.5}
-      onPress={() => setToggleCheckBox(!toggleCheckBox)}
+      onPress={() => {
+        setToggleCheckBox(!toggleCheckBox);
+        handleMember(props);
+      }}
       style={{
         marginTop: 15,
         display: "flex",
